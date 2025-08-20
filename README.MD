@@ -72,13 +72,6 @@ Para executar a aplicação localmente, siga os passos abaixo:
     ```
     A aplicação será aberta automaticamente no seu navegador.
 
-## ☁️ Próximos Passos: Deploy
+## ☁️  Deploy
+### https://analise-financeira-streamlit.onrender.com/
 
-O próximo passo natural para este projeto é realizar o deploy para a nuvem, tornando a ferramenta acessível a qualquer pessoa através de um link público. A plataforma escolhida para isso é o **Streamlit Community Cloud**, por sua simplicidade e integração nativa com projetos Streamlit hospedados no GitHub.
-
-**Plano de Deploy:**
-
-1.  **Versionamento:** Enviar o código finalizado para um repositório no GitHub.
-2.  **Configuração:** Garantir que o arquivo `requirements.txt` esteja completo e correto.
-3.  **Deploy:** Utilizar a plataforma Streamlit Community Cloud para conectar ao repositório do GitHub e realizar o deploy com poucos cliques.
-4.  **Acesso Público:** Após o deploy, a aplicação estará disponível online através de uma URL pública, pronta para ser compartilhada e utilizada.
