@@ -1,0 +1,32 @@
+[theme]
+# Cores do tema personalizado
+primaryColor = "#1f77b4"
+backgroundColor = "#ffffff" 
+secondaryBackgroundColor = "#f0f2f6"
+textColor = "#262730"
+
+[server]
+# Configurações do servidor
+port = 8501
+headless = false
+runOnSave = true
+allowRunOnSave = true
+
+[browser]
+# Configurações do navegador
+gatherUsageStats = false
+
+[logger]
+# Configurações de log
+level = "info"
+
+[client]
+# Configurações do cliente
+caching = true
+displayEnabled = true
+
+[runner]
+# Configurações de execução
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true

@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+.venv/
+env/
+.env
+
+# IDE / Editor specific
+.vscode/
+.history/
+.idea/
+
+# Streamlit secrets - NUNCA comite este arquivo se ele existir
+.streamlit/secrets.toml
+
+# Data files - IMPORTANTE: Não comite dados financeiros pessoais
+# O script gerador_dados_falsos.py pode ser usado para criar um exemplo.
+data/
+*.csv
+*.xls
+*.xlsx
