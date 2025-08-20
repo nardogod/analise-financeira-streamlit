@@ -17,12 +17,13 @@ st.set_page_config(
 
 # --- Funções auxiliares ---
 @st.cache_data
-def load_and_process_data(uploaded_file) -> Optional[pd.DataFrame]:
+def load_and_process_data(uploaded_file, sheet_name: Optional[str] = None) -> Optional[pd.DataFrame]:
     """
     Carrega e processa os dados do arquivo CSV ou Excel de extrato bancário.
     
     Args:
         uploaded_file: Arquivo CSV, XLS ou XLSX carregado pelo usuário
+        sheet_name: O nome da planilha a ser lida (para arquivos Excel)
         
     Returns:
         DataFrame processado ou None se houver erro
@@ -46,21 +47,8 @@ def load_and_process_data(uploaded_file) -> Optional[pd.DataFrame]:
         
         elif file_type in ['xls', 'xlsx']:
             try:
-                excel_file = pd.ExcelFile(uploaded_file)
-                sheet_names = excel_file.sheet_names
-                
-                if len(sheet_names) > 1:
-                    st.sidebar.info(f"📋 Planilhas encontradas: {', '.join(sheet_names)}")
-                    selected_sheet = st.sidebar.selectbox(
-                        "📊 Selecione a planilha:",
-                        sheet_names,
-                        help="Escolha a planilha que contém os dados do extrato"
-                    )
-                else:
-                    selected_sheet = sheet_names[0]
-                
-                df = pd.read_excel(uploaded_file, sheet_name=selected_sheet)
-                
+                # A lógica de seleção da planilha foi movida para a interface principal.
+                df = pd.read_excel(uploaded_file, sheet_name=sheet_name)
             except Exception as e:
                 st.error(f"❌ Erro ao ler arquivo Excel: {str(e)}")
                 return None
@@ -470,11 +458,31 @@ def main():
         return
     
     # Processamento dos dados
+    # A lógica de seleção de planilha para arquivos Excel é tratada aqui, fora da função cacheada.
+    selected_sheet = None
+    if uploaded_file.name.lower().endswith(('xls', 'xlsx')):
+        try:
+            # Usamos seek(0) para garantir que o ponteiro do arquivo esteja no início
+            uploaded_file.seek(0)
+            excel_file = pd.ExcelFile(uploaded_file)
+            sheet_names = excel_file.sheet_names
+            
+            if len(sheet_names) > 1:
+                st.sidebar.info(f"📋 Planilhas encontradas: {', '.join(sheet_names)}")
+                selected_sheet = st.sidebar.selectbox(
+                    "📊 Selecione a planilha:",
+                    sheet_names,
+                    help="Escolha a planilha que contém os dados do extrato"
+                )
+            else:
+                selected_sheet = sheet_names[0]
+        except Exception as e:
+            st.error(f"❌ Erro ao inspecionar o arquivo Excel: {str(e)}")
+            return
+
     with st.spinner("🔄 Processando dados..."):
-        df_processed = load_and_process_data(uploaded_file)
-    
-    if df_processed is None:
-        return
+        # Passamos o nome da planilha selecionada para a função de processamento
+        df_processed = load_and_process_data(uploaded_file, sheet_name=selected_sheet)
     
     st.success(f"✅ Arquivo processado com sucesso! {len(df_processed)} transações encontradas.")
     
