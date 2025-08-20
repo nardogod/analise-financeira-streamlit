@@ -1,4 +1,4 @@
-# 💰 Análise Financeira de Extrato Bancário - Imersão Python Alura
+# 💰 Análise Financeira de Extrato Bancário - Imersão Python Alura + LLMs 
 
 Este projeto é o resultado da Imersão Python da Alura, focado em Análise de Dados. A aplicação web, desenvolvida com Streamlit, permite que usuários façam o upload de seus extratos bancários (em formato CSV ou Excel) e recebam uma análise financeira interativa e visual.
 
