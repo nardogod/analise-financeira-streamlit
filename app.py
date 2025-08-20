@@ -484,6 +484,12 @@ def main():
         # Passamos o nome da planilha selecionada para a função de processamento
         df_processed = load_and_process_data(uploaded_file, sheet_name=selected_sheet)
     
+    # Adiciona uma verificação para garantir que o DataFrame foi processado com sucesso
+    if df_processed is None:
+        # A função load_and_process_data já exibe a mensagem de erro.
+        # Apenas interrompemos a execução para evitar mais erros.
+        return
+
     st.success(f"✅ Arquivo processado com sucesso! {len(df_processed)} transações encontradas.")
     
     # Controles de filtro na sidebar
